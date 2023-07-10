@@ -1,0 +1,45 @@
+﻿<Window x:Class="SchoolPlatform.Views.StudentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SchoolPlatform.Views"
+        mc:Ignorable="d"
+        Title="StudentWindow" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="D:\FACULTATE\AN 2 SEM 2\tema 3 mvp\SchoolPlatform\Images\rr.jpg" Opacity="0.8"/>
+    </Window.Background>
+    <Grid>
+        <TextBlock Foreground="Black" Text="{Binding Clasa.AnStudiu, StringFormat=Clasa a : {0}-a}" Margin="25,36,599,355"/>
+        <TextBlock Foreground="Black" Text="{Binding Clasa.DenumireSpecializare, StringFormat=Specializarea: {0}}" Margin="25,68,599,323"/>
+
+        <Grid Name="Buttons" Visibility="Visible">
+            <Button Name="MaterialDidacticBtn" Content="Material didactic" Click="MaterialDidacticBtn_Click"  Margin="334,68,334,318"></Button>
+            <Button Name="NoteBtn" Content="Note" Click="NoteBtn_Click"  Margin="334,144,334,239"></Button>
+            <Button Name="AbsenteBtn" Content="Absente" Click="AbsenteBtn_Click"  Margin="334,233,334,151"></Button>
+           
+        </Grid>
+        <Button Name="GoBackBtn" Visibility="Hidden" Content="Go Back" Click="GoBackBtn_Click"  Margin="596,68,72,288"></Button>
+
+        <DataGrid Visibility="Hidden" ColumnWidth="0.25*" x:Name="CourseMaterialGrid"  AutoGenerateColumns="False" ItemsSource="{Binding Path= CourseMaterials, UpdateSourceTrigger=PropertyChanged}" Margin="27,195,31,0"  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Name" Binding="{Binding CourseMaterial_name}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid Visibility="Hidden" ColumnWidth="0.25*" x:Name="GradesGrid"  AutoGenerateColumns="False" ItemsSource="{Binding Path= GradeViews, UpdateSourceTrigger=PropertyChanged}" Margin="27,195,31,0"  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Materie" Binding="{Binding Course_name}"/>
+                <DataGridTextColumn Header="Nota" Binding="{Binding Grade_value}"/>
+                <DataGridTextColumn Header="Semestru" Binding="{Binding Semester}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <DataGrid Visibility="Hidden" ColumnWidth="0.25*" x:Name="AbsencesGrid"  AutoGenerateColumns="False" ItemsSource="{Binding Path= AbsenceViews, UpdateSourceTrigger=PropertyChanged}" Margin="27,195,31,0"  >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Materie" Binding="{Binding Course_name}"/>
+                <DataGridTextColumn Header="Semestru" Binding="{Binding Semester}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

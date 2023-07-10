@@ -1,0 +1,53 @@
+﻿<Window x:Class="SchoolPlatform.Views.LoginOrCreateAccount"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:convert="clr-namespace:SchoolPlatform.Models.Converter"
+        xmlns:ctx="clr-namespace:SchoolPlatform.ViewModels"
+        xmlns:local="clr-namespace:SchoolPlatform.Views"
+        mc:Ignorable="d"
+        Title="LoginOrCreateAccount" Height="450" Width="800">
+    <Window.Background>
+        <ImageBrush ImageSource="D:\FACULTATE\AN 2 SEM 2\tema 3 mvp\SchoolPlatform\Images\rr.jpg" Opacity="0.8"/>
+    </Window.Background>
+    <Grid>
+        <Grid.Resources>
+            <convert:UserConvert x:Key="userConvert"/>
+        </Grid.Resources>
+        <Label Name="Title" Content="Create Account" HorizontalAlignment="Left" Margin="310,10,0,0" VerticalAlignment="Top" FontSize="20" FontFamily="Perpetua Titling MT" FontWeight="Bold"/>
+        <Label Content="Username" HorizontalAlignment="Left" Margin="182,86,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <Label HorizontalAlignment="Left" Content="Password" Margin="184,146,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox HorizontalAlignment="Left" FontFamily="ms-appx:///Assets/PassDot.ttf#PassDot" Name="Username" Margin="303,86,0,0" TextWrapping="Wrap" Text="{Binding Username,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="224" Height="40" TextAlignment="Center" FontSize="22"/>
+        <PasswordBox HorizontalAlignment="Left" Name="Password" PasswordChanged="Password_PasswordChanged"  Margin="303,145,0,0" VerticalAlignment="Top" Width="224" Height="38" FontSize="22" RenderTransformOrigin="1.467,0.225"/>
+        <Button Content="CANCEL" Name="Cancel" Click="Cancel_Click"  HorizontalAlignment="Left" Margin="434,267,0,0" VerticalAlignment="Top" FontSize="18" Background="White" Width="93"/>
+        <ComboBox SelectedItem="{Binding UserType, UpdateSourceTrigger=PropertyChanged}" Text="{Binding UserType}" HorizontalAlignment="Left" Name="UserType" Margin="345,196,0,0" VerticalAlignment="Top" Width="140" FontSize="18">
+            <ComboBoxItem>Administrator</ComboBoxItem>
+            <ComboBoxItem>Profesor</ComboBoxItem>
+            <ComboBoxItem>Diriginte</ComboBoxItem>
+        </ComboBox>
+        <Button Name="ContinueBtn" Content="REGISTER" Visibility="Visible" Click="ContinueBtn_Click"  ToolTipService.ShowOnDisabled="True" ToolTip="Username already exists OR all fields must be completed" Command="{Binding AddCommand}" HorizontalAlignment="Left" Margin="303,267,0,0" VerticalAlignment="Top" FontSize="18" Background="White" Width="94">
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource userConvert}">
+                    <Binding ElementName="Username" Path="Text"/>
+                    <Binding ElementName="Hidden" Path="Text"/>
+                    <Binding ElementName="UserType" Path="SelectionBoxItem"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+
+        <Button Name="LoginBtn" Content="LOGIN" Click="ContinueBtn_Click" Command="{Binding LoginCommand}" Visibility="Hidden" ToolTipService.ShowOnDisabled="True" ToolTip="Username already exists OR all fields must be completed" HorizontalAlignment="Left" Margin="303,267,0,0" VerticalAlignment="Top" FontSize="18" Background="White" Width="94">
+            <Button.CommandParameter>
+                <MultiBinding Converter="{StaticResource userConvert}">
+                    <Binding ElementName="Username" Path="Text"/>
+                    <Binding ElementName="Hidden" Path="Text"/>
+                    <Binding ElementName="UserType" Path="SelectionBoxItem"/>
+                </MultiBinding>
+            </Button.CommandParameter>
+        </Button>
+        <Label Name="ToHide" Content="Already have an account? Sign in!" MouseLeftButtonDown="ToHide_MouseLeftButtonDown_1"  HorizontalAlignment="Left" Margin="264,335,0,0" VerticalAlignment="Top" Width="302" HorizontalContentAlignment="Center"/>
+        <Label Name="UserTypeLabel" HorizontalAlignment="Left" Content="User Type" Margin="184,191,0,0" VerticalAlignment="Top" FontSize="16" FontFamily="Sitka Small" Height="40" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBox Name="Hidden" HorizontalAlignment="Left" Margin="570,157,0,0" TextWrapping="Wrap" Text="{Binding Password,UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="120"/>
+
+    </Grid>
+</Window>
